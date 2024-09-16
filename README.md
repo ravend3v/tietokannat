@@ -1,1 +1,0 @@
-# tietokanta-teht-v-t

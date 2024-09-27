@@ -79,3 +79,67 @@ SELECT airport.name FROM airport, game, goal, goal_reached WHERE ident = locatio
 ### Tehtävä 10
 SELECT country.name FROM airport, country, game, goal, goal_reached WHERE ident = location AND airport.iso_country = country.iso_country AND game.id = game_id AND goal.id = goal_id AND screen_name = "Ilkka" AND goal.name = "CLOUDS";
 ![img_18.png](img_18.png)
+
+# Join harjoitukset
+
+### Tehtävä 1
+SELECT country.name AS "country name", airport.name AS "airport name" FROM country INNER JOIN airport ON airport.iso_country = country.iso_country  WHERE country.name = "Finland" AND scheduled_service = "yes";
+![img_19.png](img_19.png)
+
+### Tehtävä 2
+SELECT screen_name, airport.name FROM game INNER JOIN airport ON location = ident;
+![img_20.png](img_20.png)
+
+### Tehtävä 3
+SELECT screen_name, country.name FROM game, airport INNER JOIN country ON location = ident WHERE airport.iso_country = country.iso_country;
+![img_21.png](img_21.png)
+
+### Tehtävä 4
+SELECT airport.name, screen_name FROM airport LEFT JOIN game ON ident = location WHERE name like "%Hels%";
+![img_22.png](img_22.png)
+
+### Tehtävä 5
+SELECT name, screen_name FROM goal LEFT JOIN goal_reached ON goal.id = goal_id LEFT JOIN game ON game.id = game_id;
+![img_23.png](img_23.png)
+
+# Sisäkysely harjoitukset
+
+### Tehtävä 1
+SELECT name FROM country WHERE iso_country IN(SELECT iso_country FROM airport WHERE name like "Satsuma%");
+![img_24.png](img_24.png)
+
+### Tehtävä 2
+SELECT name FROM airport WHERE iso_country IN(SELECT iso_country FROM country WHERE name = "Monaco");
+![img_25.png](img_25.png)
+
+### Tehtävä 3
+SELECT screen_name FROM game WHERE id IN(SELECT game_id FROM goal_reached WHERE goal_id IN(SELECT id FROM goal WHERE name = "CLOUDS"));
+![img_26.png](img_26.png)
+
+### Tehtävä 4
+SELECT country.name FROM country WHERE iso_country NOT IN(SELECT airport.iso_country FROM airport);
+![img_27.png](img_27.png)
+
+### Tehtävä 5
+SELECT name FROM goal WHERE id NOT IN(SELECT goal.id FROM goal, goal_reached, game WHERE game.id = game_id AND goal.id = goal_id AND screen_name = "Heini");
+![img_28.png](img_28.png)
+
+# Koostetieto kyselyt 
+
+### Tehtävä 1
+SELECT max(elevation_ft) FROM airport;
+![img_29.png](img_29.png)
+
+### Tehtävä 2
+SELECT continent, count(*) FROM country GROUP BY continent;
+![img_30.png](img_30.png)
+
+### Tehtävä 3
+SELECT screen_name, count(*) FROM game, goal_reached WHERE id = game_id GROUP BY screen_name;
+![img_31.png](img_31.png)
+
+### Tehtävä 4
+SELECT screen_name FROM game WHERE co2_consumed IN(SELECT min(co2_consumed) FROM game);
+![img_32.png](img_32.png)
+
+### Tehtävä 5

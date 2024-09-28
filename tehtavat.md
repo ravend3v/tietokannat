@@ -143,3 +143,47 @@ SELECT screen_name FROM game WHERE co2_consumed IN(SELECT min(co2_consumed) FROM
 ![img_32.png](img_32.png)
 
 ### Tehtävä 5
+SELECT country.name, count(*) FROM airport, country WHERE airport.iso_country = country.iso_country GROUP BY country.iso_country ORDER BY count(*)DESC LIMIT 50;
+![img_33.png](img_33.png)
+
+### Tehtävä 6
+SELECT country.name FROM airport, country WHERE airport.iso_country = country.iso_country GROUP BY country.iso_country HAVING count(*)>1000;
+![img_34.png](img_34.png)
+
+### Tehtävä 7
+SELECT name FROM airport WHERE elevation_ft IN (SELECT max(elevation_ft) FROM airport);
+![img_35.png](img_35.png)
+
+### Tehtävä 8
+SELECT name FROM country WHERE iso_country IN (SELECT iso_country FROM airport WHERE elevation_ft IN (SELECT max(elevation_ft) FROM airport));
+![img_36.png](img_36.png)
+
+### Tehtävä 9
+SELECT count(*) FROM game, goal_reached WHERE id = game_id AND screen_name = "Vesa" GROUP BY screen_name;
+![img_37.png](img_37.png)
+
+### Tehtävä 10
+SELECT name FROM airport WHERE latitude_deg IN (SELECT min(latitude_deg) FROM airport);
+![img_38.png](img_38.png)
+
+
+# Päivityskyselyt
+
+### Tehtävä 1
+UPDATE game SET location = (SELECT ident FROM airport WHERE name = "Nottingham Airport"), co2_consumed = co2_consumed+500 WHERE screen_name = "Vesa";
+![img_39.png](img_39.png)
+
+### Tehtävä 3
+DELETE FROM goal_reached;
+SELECT * FROM goal_reached;
+![img_40.png](img_40.png)
+
+### Tehtävä 4
+DELETE FROM game;
+SELECT * FROM game;
+![img_41.png](img_41.png)
+
+# Tietokannan suunnittelu tehavat
+![img_42.png](img_42.png)
+
+
